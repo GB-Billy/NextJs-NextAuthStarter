@@ -6,11 +6,15 @@ import {
   ListItemAvatar,
   SwipeableDrawer,
   Typography,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import React from "react";
 import LogoutButton from "../Buttons/LogoutButton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 interface LeftMenuProps {
   openSideNavigation: boolean;
   setOpenSideNavigation: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +23,7 @@ const LeftMenu: React.FC<LeftMenuProps> = (props) => {
   const { openSideNavigation, setOpenSideNavigation } = props;
   const session: any = useSession();
   const user = session?.data?.user;
+  const router = useRouter();
   return (
     <SwipeableDrawer
       open={openSideNavigation}
@@ -48,6 +53,14 @@ const LeftMenu: React.FC<LeftMenuProps> = (props) => {
           </>
         }
       >
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => router.push('/chat')}>
+            <ListItemIcon>
+              <AutoAwesomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="AI Testing" />
+          </ListItemButton>
+        </ListItem>
         <ListItem>
           <LogoutButton />
         </ListItem>
